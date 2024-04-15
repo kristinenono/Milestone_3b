@@ -594,24 +594,23 @@ let blog_content = ` <main>
 </main>`;
 
 // Get the modal
-let modal = document.getElementById("#addPostForm");
-
-// Get the button that opens the modal
+let modal = document.getElementById("addPostForm");
 let btn = document.getElementById("addPostButton");
 
-// When the user clicks the button, open the modal
 btn.onclick = function() {
   modal.classList.add("is-active");
 };
 
-// When the user clicks on <span> (x), close the modal
-modal.querySelector(".modal-close").onclick = function () {
+// Get the close button within the modal
+let closeButton = modal.querySelector(".modal-close");
+
+closeButton.onclick = function() {
   modal.classList.remove("is-active");
 };
 
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function (event) {
-  if (event.target == modal) {
+// Close modal when clicking outside of it
+window.onclick = function(event) {
+  if (event.target === modal.querySelector(".modal-background")) {
     modal.classList.remove("is-active");
   }
 };
