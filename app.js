@@ -674,25 +674,40 @@ r_e("calendarbtn").addEventListener("click", () => {
     <div id="cal_page" class="wrapper">
       <!-- LEFT MARGIN -->
       <div class="colormargins margin-left">
-        <h2 class="heading-tag-upcoming-event">Upcoming Events</h2>
-        <div class="flex-container">
-        <div id="all_events"></div>
-        <div class="modal is-hidden" id="eventModal">
-  <div class="modal-background"></div>
-  <div class="modal-card">
-    <header class="modal-card-head">
-      <p class="modal-card-title" id="eventModalTitle"></p>
-      <button class="delete" aria-label="close" id="closeModal"></button>
-    </header>
-    <section class="modal-card-body" id="eventModalContent">
-      <!-- Event details will be populated here -->
-    </section>
-    <footer class="modal-card-foot">
-      <button class="button" id="closeModalButton">Close</button>
-    </footer>
-  </div>
- </div> 
-         </div>
+      <h2 class="heading-tag-upcoming-event">Upcoming Events</h2>
+      <div class="flex-container">
+        <div class="box margin-event">
+          <h2>Philathropy event</h2>
+
+          <a href="#" class="events-button">View Event Here! </a>
+
+          <div id="eventCard" class="event-card hidden">
+            <!-- Content of the event card goes here -->
+            <h2 class="secondaryheader">Event Title</h2>
+            <p class="primaryBody">Date: [Event Date]</p>
+            <p class="primaryBody">Location: [Event Location]</p>
+            <!-- Add more details as needed -->
+            <button id="editEventCard">Edit</button>
+            <button id="deleteEventCard">Delete</button>
+            <button id="closeEventCard">Close</button>
+          </div>
+        </div>
+        <div class="box margin-event">
+          <h2>Professional Development Event</h2>
+
+          <a href="#" class="events-button">View Event Here! </a>
+        </div>
+        <div class="box margin-event">
+          <h2>Speaker Event</h2>
+
+          <a href="#" class="events-button">View Event Here! </a>
+        </div>
+        <div class="box margin-event">
+          <h2>Social Event</h2>
+
+          <a href="#" class="events-button">View Event Here! </a>
+        </div>
+      </div>
       </div>
       <div id="sample" class="colormargins page-content">
       <div class="navcal">
@@ -985,6 +1000,91 @@ r_e("calendarbtn").addEventListener("click", () => {
   //     }
   //   });
   // }
+  const viewEventLinks = document.querySelectorAll(".events-button");
+  const eventCard = document.getElementById("eventCard");
+  const closeEventCardBtn = document.getElementById("eventCard");
+
+  let eventCard1 = r_e("card_modal_1");
+  let eventbtn1 = r_e("eventbtn1");
+  let eventclose1 = r_e("closeEventCard");
+
+  function showEventCard1() {
+    eventCard1.classList.remove("is-hidden");
+    eventCard1.classList.add("is-active");
+  }
+  eventbtn1.addEventListener("click", showEventCard1);
+
+  eventclose1.addEventListener("click", () => {
+    eventCard1.classList.remove("is-active");
+  });
+  // eventcardModal2
+  let eventCard2 = r_e("card_modal_2");
+  let eventbtn2 = r_e("eventbtn2");
+  let eventclose2 = r_e("closeEventCard2");
+
+  function showEventCard2() {
+    eventCard2.classList.remove("is-hidden");
+    eventCard2.classList.add("is-active");
+  }
+  eventbtn2.addEventListener("click", showEventCard2);
+
+  eventclose2.addEventListener("click", () => {
+    eventCard2.classList.remove("is-active");
+  });
+
+  // / eventcardModal3
+  let eventCard3 = r_e("card_modal_3");
+  let eventbtn3 = r_e("eventbtn3");
+  let eventclose3 = r_e("closeEventCard3");
+
+  function showEventCard3() {
+    eventCard3.classList.remove("is-hidden");
+    eventCard3.classList.add("is-active");
+  }
+  eventbtn3.addEventListener("click", showEventCard3);
+
+  eventclose3.addEventListener("click", () => {
+    eventCard3.classList.remove("is-active");
+  });
+
+  // / eventcardModal4
+  let eventCard4 = r_e("card_modal_4");
+  let eventbtn4 = r_e("eventbtn4");
+  let eventclose4 = r_e("closeEventCard4");
+
+  function showEventCard4() {
+    eventCard4.classList.remove("is-hidden");
+    eventCard4.classList.add("is-active");
+  }
+  eventbtn4.addEventListener("click", showEventCard4);
+
+  eventclose4.addEventListener("click", () => {
+    eventCard4.classList.remove("is-active");
+  });
+
+  // Add an event listener to the close button
+  document
+    .getElementById("closeAddEventsPopup")
+    .addEventListener("click", closeAddEventsPopup);
+
+  // Function to close the add events popup
+  function closeAddEventsPopup() {
+    var addEventsPopup = document.getElementById("addEventsPopup");
+    addEventsPopup.style.display = "none";
+  }
+
+  // Show the event card when any "View Event Here" link is clicked
+  viewEventLinks.forEach(function (link) {
+    link.addEventListener("click", function () {
+      eventCard.classList.remove("hidden");
+    });
+  });
+
+  // Close the event card when the close button is clicked
+  closeEventCardBtn.addEventListener("click", function () {
+    eventCard.classList.add("hidden");
+    
+  });
 
   function show_event_cards() {
     db.collection("events")
@@ -1081,95 +1181,4 @@ r_e("calendarbtn").addEventListener("click", () => {
   // Refresh the list of events
   show_event_cards(); // <-- Call the function to update the event list
 
-  const viewEventLinks = document.querySelectorAll(".events-button");
-  const eventCard = document.getElementById("eventCard");
-  const closeEventCardBtn = document.getElementById("eventCard");
-
-  let eventCard1 = r_e("card_modal_1");
-  let eventbtn1 = r_e("eventbtn1");
-  let eventclose1 = r_e("closeEventCard");
-
-  function showEventCard1() {
-    eventCard1.classList.remove("is-hidden");
-    eventCard1.classList.add("is-active");
-  }
-  eventbtn1.addEventListener("click", showEventCard1);
-
-  eventclose1.addEventListener("click", () => {
-    eventCard1.classList.remove("is-active");
-  });
-  // eventcardModal2
-  let eventCard2 = r_e("card_modal_2");
-  let eventbtn2 = r_e("eventbtn2");
-  let eventclose2 = r_e("closeEventCard2");
-
-  function showEventCard2() {
-    eventCard2.classList.remove("is-hidden");
-    eventCard2.classList.add("is-active");
-  }
-  eventbtn2.addEventListener("click", showEventCard2);
-
-  eventclose2.addEventListener("click", () => {
-    eventCard2.classList.remove("is-active");
-  });
-
-  // / eventcardModal3
-  let eventCard3 = r_e("card_modal_3");
-  let eventbtn3 = r_e("eventbtn3");
-  let eventclose3 = r_e("closeEventCard3");
-
-  function showEventCard3() {
-    eventCard3.classList.remove("is-hidden");
-    eventCard3.classList.add("is-active");
-  }
-  eventbtn3.addEventListener("click", showEventCard3);
-
-  eventclose3.addEventListener("click", () => {
-    eventCard3.classList.remove("is-active");
-  });
-
-  // / eventcardModal4
-  let eventCard4 = r_e("card_modal_4");
-  let eventbtn4 = r_e("eventbtn4");
-  let eventclose4 = r_e("closeEventCard4");
-
-  function showEventCard4() {
-    eventCard4.classList.remove("is-hidden");
-    eventCard4.classList.add("is-active");
-  }
-  eventbtn4.addEventListener("click", showEventCard4);
-
-  eventclose4.addEventListener("click", () => {
-    eventCard4.classList.remove("is-active");
-  });
-
-  // Add an event listener to the close button
-  document
-    .getElementById("closeAddEventsPopup")
-    .addEventListener("click", closeAddEventsPopup);
-
-  // Function to close the add events popup
-  function closeAddEventsPopup() {
-    var addEventsPopup = document.getElementById("addEventsPopup");
-    addEventsPopup.style.display = "none";
-  }
-
-  // Show the event card when any "View Event Here" link is clicked
-  viewEventLinks.forEach(function (link) {
-    link.addEventListener("click", function () {
-      eventCard.classList.remove("hidden");
-    });
-  });
-
-  // Close the event card when the close button is clicked
-  closeEventCardBtn.addEventListener("click", function () {
-    eventCard.classList.add("hidden");
-  });
 });
-// let attd_but = r_e("submit_points");
-// attd_but.addEventListener("click", () => {
-//   const modalId = this.closest(".modal").id;
-//   document.getElementById(modalId).classList.add("is-hidden");
-//   r_e("attd_mod").classList.remove("is-hidden");
-//   r_e("attd_mod").classList.add("is-active");
-// });
