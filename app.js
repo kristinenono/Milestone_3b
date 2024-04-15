@@ -20,8 +20,6 @@ document.addEventListener("click", function (event) {
   }
 });
 
-
-
 // Grab the elements for login and signup buttons and modals
 var loginButton = document.getElementById("loginbtn");
 var signupButton = document.getElementById("signupbtn");
@@ -74,12 +72,6 @@ r_e("user_notfound").addEventListener("click", () => {
   }
 });
 
-
-
-
-
-
-
 let home_page_content = `<div class="titleContainers">
 <div class="column column1">
     <h1 class="title is-1 has-text-light" id="title_uw">Welcome to <br />AMA UW-Madison</h1>
@@ -122,15 +114,6 @@ let home_page_content = `<div class="titleContainers">
 r_e("home-link").addEventListener("click", () => {
   appendContent(home_page_content);
 });
-
-
-
-
-
-
-
-
-
 
 let abt_content = `      <div id="contactSectionTop" class="contactSection-box contactTopFormat">
 <h2 class="primaryheader">More About Us</h2>
@@ -345,16 +328,6 @@ r_e("abt-link").addEventListener("click", () => {
   appendContent(abt_content);
 });
 
-
-
-
-
-
-
-
-
-
-
 // contact page content
 let contact_content = `<div id="contactSectionTop" class="contactSection-box contactTopFormat">
 <h2 class="primaryheader">Let's get in touch.</h2>
@@ -446,9 +419,6 @@ Please fill out this contact form or you can reach us us at
 </div>
 </div>`;
 
-
-
-
 r_e("contact-link").addEventListener("click", () => {
   appendContent(contact_content);
 });
@@ -458,14 +428,6 @@ r_e("joinbuttonhome").addEventListener("click", () => {
   appendContent(contact_content);
   console.log("learnbuttonclicked");
 });
-
-
-
-
-
-
-
-
 
 let points_content = `<div class="filter-container">
     <div class="filtername">
@@ -514,22 +476,12 @@ let points_content = `<div class="filter-container">
 >
   <!-- Table rows will be dynamically added here -->
 </tbody>
-</table>`
-
-
+</table>`;
 
 // points page content
 r_e("pointbtn").addEventListener("click", () => {
-  appendContent(points_content)
+  appendContent(points_content);
 });
-
-
-
-
-
-
-
-
 
 let blog_content = ` <main>
 <div class="blogpage">
@@ -624,12 +576,6 @@ r_e("blog-link").addEventListener("click", () => {
   r_e("addPostButton").classList.remove("is-hidden");
 });
 
-
-
-
-
-
-
 const calendarView = document.querySelector(".calview");
 const monthSelect = r_e("month-select");
 const prevMonthBtn = document.querySelector(".action_left");
@@ -723,8 +669,8 @@ function generateCalendarHTML(date) {
 
 r_e("calendarbtn").addEventListener("click", () => {
   console.log("btn clicked");
-    // User is signed in
-    let cal_page_content = `<main>
+  // User is signed in
+  let cal_page_content = `<main>
     <div id="cal_page" class="wrapper">
       <!-- LEFT MARGIN -->
       <div class="colormargins margin-left">
@@ -745,9 +691,7 @@ r_e("calendarbtn").addEventListener("click", () => {
       <button class="button" id="closeModalButton">Close</button>
     </footer>
   </div>
- </div>
-     
-         
+ </div> 
          </div>
       </div>
       <div id="sample" class="colormargins page-content">
@@ -784,83 +728,8 @@ r_e("calendarbtn").addEventListener("click", () => {
           ${generateCalendarHTML(currentDate)}
         </div>
       </div>
-    </div>
-  </main>`;
-    appendContent(cal_page_content);
-
-    // Set the month select dropdown value to the current month
-    const monthSelect = document.getElementById("month-select");
-    const currentMonth = currentDate.getMonth(); // Get the current month index
-    monthSelect.selectedIndex = currentMonth;
-
-    document.getElementById("today-btn").addEventListener("click", () => {
-      const currentDate = new Date(); // Get the current date
-      const currentMonth = currentDate.getMonth(); // Get the current month index
-      const currentYear = currentDate.getFullYear(); // Get the current year
-      const firstDayOfMonth = new Date(currentYear, currentMonth, 1); // Get the first day of the current month
-      document.querySelector(".calview").innerHTML = generateCalendarHTML(
-        firstDayOfMonth,
-        currentMonth
-      );
-
-      // Update the month select dropdown value to the current month
-      const monthSelect = document.getElementById("month-select");
-      monthSelect.selectedIndex = currentMonth;
-    });
-
-    document
-      .getElementById("month-select")
-      .addEventListener("change", (event) => {
-        const selectedMonth = event.target.value;
-        const selectedMonthIndex = monthNames.indexOf(selectedMonth);
-        const currentYear = new Date().getFullYear(); // Get the current year
-        const firstDayOfSelectedMonth = new Date(
-          currentYear,
-          selectedMonthIndex,
-          1
-        );
-        document.querySelector(".calview").innerHTML = generateCalendarHTML(
-          firstDayOfSelectedMonth
-        );
-      });
-
-    document.querySelector(".action_left").addEventListener("click", () => {
-      currentDate.setMonth(currentDate.getMonth() - 1); // Move to the previous month
-      const currentMonth = currentDate.getMonth(); // Get the updated month index
-      const currentYear = currentDate.getFullYear(); // Get the updated year
-      const firstDayOfMonth = new Date(currentYear, currentMonth, 1); // Get the first day of the updated month
-      document.querySelector(".calview").innerHTML = generateCalendarHTML(
-        firstDayOfMonth,
-        currentMonth
-      );
-
-      // Update the month select dropdown value to the updated month
-      monthSelect.selectedIndex = currentMonth;
-    });
-
-    document.querySelector(".action_right").addEventListener("click", () => {
-      currentDate.setMonth(currentDate.getMonth() + 1); // Move to the next month
-      const currentMonth = currentDate.getMonth(); // Get the updated month index
-      const currentYear = currentDate.getFullYear(); // Get the updated year
-      const firstDayOfMonth = new Date(currentYear, currentMonth, 1); // Get the first day of the updated month
-      document.querySelector(".calview").innerHTML = generateCalendarHTML(
-        firstDayOfMonth,
-        currentMonth
-      );
-
-      // Update the month select dropdown value to the updated month
-      monthSelect.selectedIndex = currentMonth;
-    });
-
-    // Set the content of yearblock to the current year
-    document.getElementById(
-      "yearblock"
-    ).textContent = `${currentDate.getFullYear()}`;
-    let addEventForm = r_e("popupmodal");
-
-    function rightMarginHTML(is_admin) {
-      if (is_admin) {
-        return `<div class="colormargins margin-right">
+   
+ <div class="colormargins margin-right">
         <a href="#" class="add-btn2" id="eventbtn">Add Event</a>
         <div class="modal is-hidden" id="popupmodal">
           <div class = "modal-background" id= "popupbg"></div>
@@ -935,126 +804,199 @@ r_e("calendarbtn").addEventListener("click", () => {
           </div>
         </form>
           </div></div>
-  </div>`;
-      } else {
-        return `<div class="colormargins margin-right">
-        <a href="#" class="add-btn2" id="ptbtn">View Points</a>
-        </main>
-    </div>`;
-      }
-    }
+  </div> </div> </main>`;
+  appendContent(cal_page_content);
 
-    if (auth.currentUser.email == "amauwmadison@gmail.com") {
-      function show_addEvent_form() {
-        addEventForm.classList.remove("is-hidden");
-        addEventForm.classList.add("is-active");
-      }
+  // Set the month select dropdown value to the current month
+  const monthSelect = document.getElementById("month-select");
+  const currentMonth = currentDate.getMonth(); // Get the current month index
+  monthSelect.selectedIndex = currentMonth;
 
-      let addEventbtn = r_e("eventbtn");
-      addEventbtn.addEventListener("click", show_addEvent_form);
+  document.getElementById("today-btn").addEventListener("click", () => {
+    const currentDate = new Date(); // Get the current date
+    const currentMonth = currentDate.getMonth(); // Get the current month index
+    const currentYear = currentDate.getFullYear(); // Get the current year
+    const firstDayOfMonth = new Date(currentYear, currentMonth, 1); // Get the first day of the current month
+    document.querySelector(".calview").innerHTML = generateCalendarHTML(
+      firstDayOfMonth,
+      currentMonth
+    );
 
-      let addEventcancel = r_e("addEventcncl");
-      addEventcancel.addEventListener("click", () => {
+    // Update the month select dropdown value to the current month
+    const monthSelect = document.getElementById("month-select");
+    monthSelect.selectedIndex = currentMonth;
+  });
+
+  document
+    .getElementById("month-select")
+    .addEventListener("change", (event) => {
+      const selectedMonth = event.target.value;
+      const selectedMonthIndex = monthNames.indexOf(selectedMonth);
+      const currentYear = new Date().getFullYear(); // Get the current year
+      const firstDayOfSelectedMonth = new Date(
+        currentYear,
+        selectedMonthIndex,
+        1
+      );
+      document.querySelector(".calview").innerHTML = generateCalendarHTML(
+        firstDayOfSelectedMonth
+      );
+    });
+
+  document.querySelector(".action_left").addEventListener("click", () => {
+    currentDate.setMonth(currentDate.getMonth() - 1); // Move to the previous month
+    const currentMonth = currentDate.getMonth(); // Get the updated month index
+    const currentYear = currentDate.getFullYear(); // Get the updated year
+    const firstDayOfMonth = new Date(currentYear, currentMonth, 1); // Get the first day of the updated month
+    document.querySelector(".calview").innerHTML = generateCalendarHTML(
+      firstDayOfMonth,
+      currentMonth
+    );
+
+    // Update the month select dropdown value to the updated month
+    monthSelect.selectedIndex = currentMonth;
+  });
+
+  document.querySelector(".action_right").addEventListener("click", () => {
+    currentDate.setMonth(currentDate.getMonth() + 1); // Move to the next month
+    const currentMonth = currentDate.getMonth(); // Get the updated month index
+    const currentYear = currentDate.getFullYear(); // Get the updated year
+    const firstDayOfMonth = new Date(currentYear, currentMonth, 1); // Get the first day of the updated month
+    document.querySelector(".calview").innerHTML = generateCalendarHTML(
+      firstDayOfMonth,
+      currentMonth
+    );
+
+    // Update the month select dropdown value to the updated month
+    monthSelect.selectedIndex = currentMonth;
+  });
+
+  // Set the content of yearblock to the current year
+  document.getElementById(
+    "yearblock"
+  ).textContent = `${currentDate.getFullYear()}`;
+  let addEventForm = r_e("popupmodal");
+
+  // function rightMarginHTML(is_admin) {
+  //   if (is_admin) {
+  //     return;
+  //   } else {
+  //     return `<div class="colormargins margin-right">
+  //       <a href="#" class="add-btn2" id="ptbtn">View Points</a>
+  //       </main>
+  //   </div>`;
+  //   }
+  // }
+
+  // if (auth.currentUser.email == "amauwmadison@gmail.com") {
+  function show_addEvent_form() {
+    addEventForm.classList.remove("is-hidden");
+    addEventForm.classList.add("is-active");
+  }
+
+  let addEventbtn = r_e("eventbtn");
+  addEventbtn.addEventListener("click", show_addEvent_form);
+
+  let addEventcancel = r_e("addEventcncl");
+  addEventcancel.addEventListener("click", () => {
+    addEventForm.classList.remove("is-active");
+  });
+  document
+    .querySelectorAll(".modal-background, .modal-close")
+    .forEach(function (el) {
+      el.addEventListener("click", function () {
         addEventForm.classList.remove("is-active");
       });
-      document
-        .querySelectorAll(".modal-background, .modal-close")
-        .forEach(function (el) {
-          el.addEventListener("click", function () {
-            addEventForm.classList.remove("is-active");
-          });
-        });
-      const addevtsbt = r_e("addevtsbt");
-      let evtname = r_e("evtname");
-      let evttime = r_e("datetime");
-      let evttype = r_e("evttype");
-      let ptsassigned = r_e("ptsassigned");
-      let descriptionevt = r_e("descriptionevt");
+    });
+  const addevtsbt = r_e("addevtsbt");
+  let evtname = r_e("evtname");
+  let evttime = r_e("datetime");
+  let evttype = r_e("evttype");
+  let ptsassigned = r_e("ptsassigned");
+  let descriptionevt = r_e("descriptionevt");
 
-      // let season = month >= 1 && month <= 6 ? "SPRING" : "FALL";
-      document
-        .getElementById("generateButton")
-        .addEventListener("click", () => {
-          function generateRandomCode(length) {
-            const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            let code = "";
-            for (let i = 0; i < length; i++) {
-              code += characters.charAt(
-                Math.floor(Math.random() * characters.length)
-              );
-            }
-            return code;
-          }
-
-          // Call the generateRandomCode function to get a random code
-          const randomCode = generateRandomCode(8); // Generate an 8-character code (adjust length as needed)
-
-          // Update the code input field with the generated code
-          document.getElementById("codeInput").value = randomCode;
-        });
-      addevtsbt.addEventListener("click", (e) => {
-        console.log("eventsbtnclicked");
-        e.preventDefault();
-        let name = evtname.value;
-        let time = evttime.value;
-        let month = new Date(time).getMonth() + 1;
-        let evtyear = new Date(time).getFullYear();
-        let season = month >= 1 && month <= 6 ? "SPRING" : "FALL";
-        let type = evttype.value;
-        let pts = ptsassigned.value;
-        let desc = descriptionevt.value;
-        let evtcode = document.querySelector("#codeInput").value;
-        // let month = new Date(evttime).getMonth() + 1;
-        // let evtyear = new Date(evttime).getFullYear();
-        console.log(evtyear);
-        let event = {
-          name: name,
-          time: time,
-          type: type,
-          pts: pts,
-          desc: desc,
-          semester: `${season} ${evtyear}`,
-          code: evtcode,
-        };
-        db.collection("events")
-          .add(event)
-          .then(() => {
-            alert("Event added to database");
-            // Clear form fields after successful submission
-            evtname.value = "";
-            evttime.value = "";
-            evttype.value = "";
-            ptsassigned.value = "";
-            descriptionevt.value = "";
-            document.getElementById("codeInput").value = ""; // Clear generated code field
-          })
-          .catch((error) => console.error("Error adding event: ", error));
-        addEventForm.classList.remove("is-active");
-      });
-    } else {
-      r_e("ptbtn").addEventListener("click", () => {
-        let check_auth = auth.currentUser;
-        console.log("btn clicked");
-        if (check_auth == null) {
-          // User is not signed in
-          alert("You must sign in to view the points page");
-        } else {
-          displayContentBasedOnEmail(check_auth.email);
-        }
-      });
+  // let season = month >= 1 && month <= 6 ? "SPRING" : "FALL";
+  document.getElementById("generateButton").addEventListener("click", () => {
+    function generateRandomCode(length) {
+      const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+      let code = "";
+      for (let i = 0; i < length; i++) {
+        code += characters.charAt(
+          Math.floor(Math.random() * characters.length)
+        );
+      }
+      return code;
     }
 
-    function show_event_cards() {
-      db.collection("events")
-        .orderBy("time")
-        .limit(4) // Limit to the first 4 closest events
-        .get()
-        .then((querySnapshot) => {
-          let html = "";
-          querySnapshot.forEach((doc) => {
-            const event = doc.data();
-            const eventId = doc.id;
-            html += `
+    // Call the generateRandomCode function to get a random code
+    const randomCode = generateRandomCode(8); // Generate an 8-character code (adjust length as needed)
+
+    // Update the code input field with the generated code
+    document.getElementById("codeInput").value = randomCode;
+  });
+  addevtsbt.addEventListener("click", (e) => {
+    console.log("eventsbtnclicked");
+    e.preventDefault();
+    let name = evtname.value;
+    let time = evttime.value;
+    let month = new Date(time).getMonth() + 1;
+    let evtyear = new Date(time).getFullYear();
+    let season = month >= 1 && month <= 6 ? "SPRING" : "FALL";
+    let type = evttype.value;
+    let pts = ptsassigned.value;
+    let desc = descriptionevt.value;
+    let evtcode = document.querySelector("#codeInput").value;
+    // let month = new Date(evttime).getMonth() + 1;
+    // let evtyear = new Date(evttime).getFullYear();
+    console.log(evtyear);
+    let event = {
+      name: name,
+      time: time,
+      type: type,
+      pts: pts,
+      desc: desc,
+      semester: `${season} ${evtyear}`,
+      code: evtcode,
+    };
+    db.collection("events")
+      .add(event)
+      .then(() => {
+        alert("Event added to database");
+        // Clear form fields after successful submission
+        evtname.value = "";
+        evttime.value = "";
+        evttype.value = "";
+        ptsassigned.value = "";
+        descriptionevt.value = "";
+        document.getElementById("codeInput").value = ""; // Clear generated code field
+      })
+      .catch((error) => console.error("Error adding event: ", error));
+    addEventForm.classList.remove("is-active");
+  });
+  // } else {
+  //   r_e("ptbtn").addEventListener("click", () => {
+  //     let check_auth = auth.currentUser;
+  //     console.log("btn clicked");
+  //     if (check_auth == null) {
+  //       // User is not signed in
+  //       alert("You must sign in to view the points page");
+  //     } else {
+  //       displayContentBasedOnEmail(check_auth.email);
+  //     }
+  //   });
+  // }
+
+  function show_event_cards() {
+    db.collection("events")
+      .orderBy("time")
+      .limit(4) // Limit to the first 4 closest events
+      .get()
+      .then((querySnapshot) => {
+        let html = "";
+        querySnapshot.forEach((doc) => {
+          const event = doc.data();
+          const eventId = doc.id;
+          html += `
               <div class="box margin-event">
                 <h2>${event.name}</h2>
                 <!-- "View Event Here" link -->
@@ -1104,125 +1046,125 @@ r_e("calendarbtn").addEventListener("click", () => {
                 </div>
               </div>
             `;
-          });
-          document.querySelector("#all_events").innerHTML = html;
-
-          // Add event listeners to each "View Event Here" link
-          document.querySelectorAll(".view-event-link").forEach((link) => {
-            link.addEventListener("click", function (event) {
-              event.preventDefault(); // Prevent default link behavior
-              const eventId = this.getAttribute("data-event-id");
-              // Show the corresponding hidden modal
-              document
-                .getElementById(`eventModal_${eventId}`)
-                .classList.remove("is-hidden");
-              document
-                .getElementById(`eventModal_${eventId}`)
-                .classList.add("is-active");
-            });
-          });
-
-          // Add event listeners to close modals
-          document.querySelectorAll(".modal-close").forEach((element) => {
-            element.addEventListener("click", function () {
-              // Hide the modal when the close button is clicked
-              const modalId = this.closest(".modal").id;
-              document.getElementById(modalId).classList.add("is-hidden");
-            });
-          });
-        })
-        .catch((error) => {
-          console.error("Error getting events: ", error);
         });
-    }
+        document.querySelector("#all_events").innerHTML = html;
 
-    // Refresh the list of events
-    show_event_cards(); // <-- Call the function to update the event list
+        // Add event listeners to each "View Event Here" link
+        document.querySelectorAll(".view-event-link").forEach((link) => {
+          link.addEventListener("click", function (event) {
+            event.preventDefault(); // Prevent default link behavior
+            const eventId = this.getAttribute("data-event-id");
+            // Show the corresponding hidden modal
+            document
+              .getElementById(`eventModal_${eventId}`)
+              .classList.remove("is-hidden");
+            document
+              .getElementById(`eventModal_${eventId}`)
+              .classList.add("is-active");
+          });
+        });
 
-    const viewEventLinks = document.querySelectorAll(".events-button");
-    const eventCard = document.getElementById("eventCard");
-    const closeEventCardBtn = document.getElementById("eventCard");
-
-    let eventCard1 = r_e("card_modal_1");
-    let eventbtn1 = r_e("eventbtn1");
-    let eventclose1 = r_e("closeEventCard");
-
-    function showEventCard1() {
-      eventCard1.classList.remove("is-hidden");
-      eventCard1.classList.add("is-active");
-    }
-    eventbtn1.addEventListener("click", showEventCard1);
-
-    eventclose1.addEventListener("click", () => {
-      eventCard1.classList.remove("is-active");
-    });
-    // eventcardModal2
-    let eventCard2 = r_e("card_modal_2");
-    let eventbtn2 = r_e("eventbtn2");
-    let eventclose2 = r_e("closeEventCard2");
-
-    function showEventCard2() {
-      eventCard2.classList.remove("is-hidden");
-      eventCard2.classList.add("is-active");
-    }
-    eventbtn2.addEventListener("click", showEventCard2);
-
-    eventclose2.addEventListener("click", () => {
-      eventCard2.classList.remove("is-active");
-    });
-
-    // / eventcardModal3
-    let eventCard3 = r_e("card_modal_3");
-    let eventbtn3 = r_e("eventbtn3");
-    let eventclose3 = r_e("closeEventCard3");
-
-    function showEventCard3() {
-      eventCard3.classList.remove("is-hidden");
-      eventCard3.classList.add("is-active");
-    }
-    eventbtn3.addEventListener("click", showEventCard3);
-
-    eventclose3.addEventListener("click", () => {
-      eventCard3.classList.remove("is-active");
-    });
-
-    // / eventcardModal4
-    let eventCard4 = r_e("card_modal_4");
-    let eventbtn4 = r_e("eventbtn4");
-    let eventclose4 = r_e("closeEventCard4");
-
-    function showEventCard4() {
-      eventCard4.classList.remove("is-hidden");
-      eventCard4.classList.add("is-active");
-    }
-    eventbtn4.addEventListener("click", showEventCard4);
-
-    eventclose4.addEventListener("click", () => {
-      eventCard4.classList.remove("is-active");
-    });
-
-    // Add an event listener to the close button
-    document
-      .getElementById("closeAddEventsPopup")
-      .addEventListener("click", closeAddEventsPopup);
-
-    // Function to close the add events popup
-    function closeAddEventsPopup() {
-      var addEventsPopup = document.getElementById("addEventsPopup");
-      addEventsPopup.style.display = "none";
-    }
-
-    // Show the event card when any "View Event Here" link is clicked
-    viewEventLinks.forEach(function (link) {
-      link.addEventListener("click", function () {
-        eventCard.classList.remove("hidden");
+        // Add event listeners to close modals
+        document.querySelectorAll(".modal-close").forEach((element) => {
+          element.addEventListener("click", function () {
+            // Hide the modal when the close button is clicked
+            const modalId = this.closest(".modal").id;
+            document.getElementById(modalId).classList.add("is-hidden");
+          });
+        });
+      })
+      .catch((error) => {
+        console.error("Error getting events: ", error);
       });
-    });
+  }
 
-    // Close the event card when the close button is clicked
-    closeEventCardBtn.addEventListener("click", function () {
-      eventCard.classList.add("hidden");
+  // Refresh the list of events
+  show_event_cards(); // <-- Call the function to update the event list
+
+  const viewEventLinks = document.querySelectorAll(".events-button");
+  const eventCard = document.getElementById("eventCard");
+  const closeEventCardBtn = document.getElementById("eventCard");
+
+  let eventCard1 = r_e("card_modal_1");
+  let eventbtn1 = r_e("eventbtn1");
+  let eventclose1 = r_e("closeEventCard");
+
+  function showEventCard1() {
+    eventCard1.classList.remove("is-hidden");
+    eventCard1.classList.add("is-active");
+  }
+  eventbtn1.addEventListener("click", showEventCard1);
+
+  eventclose1.addEventListener("click", () => {
+    eventCard1.classList.remove("is-active");
+  });
+  // eventcardModal2
+  let eventCard2 = r_e("card_modal_2");
+  let eventbtn2 = r_e("eventbtn2");
+  let eventclose2 = r_e("closeEventCard2");
+
+  function showEventCard2() {
+    eventCard2.classList.remove("is-hidden");
+    eventCard2.classList.add("is-active");
+  }
+  eventbtn2.addEventListener("click", showEventCard2);
+
+  eventclose2.addEventListener("click", () => {
+    eventCard2.classList.remove("is-active");
+  });
+
+  // / eventcardModal3
+  let eventCard3 = r_e("card_modal_3");
+  let eventbtn3 = r_e("eventbtn3");
+  let eventclose3 = r_e("closeEventCard3");
+
+  function showEventCard3() {
+    eventCard3.classList.remove("is-hidden");
+    eventCard3.classList.add("is-active");
+  }
+  eventbtn3.addEventListener("click", showEventCard3);
+
+  eventclose3.addEventListener("click", () => {
+    eventCard3.classList.remove("is-active");
+  });
+
+  // / eventcardModal4
+  let eventCard4 = r_e("card_modal_4");
+  let eventbtn4 = r_e("eventbtn4");
+  let eventclose4 = r_e("closeEventCard4");
+
+  function showEventCard4() {
+    eventCard4.classList.remove("is-hidden");
+    eventCard4.classList.add("is-active");
+  }
+  eventbtn4.addEventListener("click", showEventCard4);
+
+  eventclose4.addEventListener("click", () => {
+    eventCard4.classList.remove("is-active");
+  });
+
+  // Add an event listener to the close button
+  document
+    .getElementById("closeAddEventsPopup")
+    .addEventListener("click", closeAddEventsPopup);
+
+  // Function to close the add events popup
+  function closeAddEventsPopup() {
+    var addEventsPopup = document.getElementById("addEventsPopup");
+    addEventsPopup.style.display = "none";
+  }
+
+  // Show the event card when any "View Event Here" link is clicked
+  viewEventLinks.forEach(function (link) {
+    link.addEventListener("click", function () {
+      eventCard.classList.remove("hidden");
     });
+  });
+
+  // Close the event card when the close button is clicked
+  closeEventCardBtn.addEventListener("click", function () {
+    eventCard.classList.add("hidden");
+  });
 });
 // let attd_but = r_e("submit_points");
 // attd_but.addEventListener("click", () => {
