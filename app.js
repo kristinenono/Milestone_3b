@@ -520,9 +520,9 @@ let points_content = `<div class="filter-container">
 
 // points page content
 r_e("pointbtn").addEventListener("click", () => {
-  // Regardless of authentication, display points page content directly.
   appendContent(points_content)
 });
+
 
 
 
@@ -547,10 +547,7 @@ let blog_content = ` <main>
     <div class="modal-background"></div>
     <div class="modal-content">
       <div class="box">
-        <h1
-          id="addPostTitle"
-          class="card-header-title is-centered is-large is-size-4"
-        >
+        <h1 id="addPostTitle" class="card-header-title is-centered is-large is-size-4">
           Add a Blog Post
         </h1>
         <div class="field">
@@ -584,42 +581,47 @@ let blog_content = ` <main>
   </div>
 
   <!-- all posts from the database -->
-  <div
-    id="all_posts"
-    class="has-background-lightgray p-4 m-3 has-background-grey-lighter"
-  >
+  <div id="all_posts" class="has-background-lightgray p-4 m-3 has-background-grey-lighter">
     <h1 class="title">All posts</h1>
   </div>
 </div>
 </main>`;
 
-// Get the modal
-let modal = document.getElementById("addPostForm");
-let btn = document.getElementById("addPostButton");
-
-btn.onclick = function() {
-  modal.classList.add("is-active");
-};
-
-// Get the close button within the modal
-let closeButton = modal.querySelector(".modal-close");
-
-closeButton.onclick = function() {
-  modal.classList.remove("is-active");
-};
-
-// Close modal when clicking outside of it
-window.onclick = function(event) {
-  if (event.target === modal.querySelector(".modal-background")) {
-    modal.classList.remove("is-active");
-  }
-};
-
-
-
 // Blog page content
 r_e("blog-link").addEventListener("click", () => {
   appendContent(blog_content);
+
+  // Wait for the content to be appended to the DOM
+  setTimeout(() => {
+    // Get the modal
+    var modal = document.getElementById("addPostForm");
+    // Get the button that opens the modal
+    var btn = document.getElementById("addPostButton");
+    // Get the <span> element that closes the modal
+    var span = modal.querySelector(".modal-close");
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function () {
+      modal.classList.add("is-active");
+    };
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+      modal.classList.remove("is-active");
+    };
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+      if (event.target == modal) {
+        modal.classList.remove("is-active");
+      }
+    };
+
+    // Call the function to display existing posts when the page loads
+  }, 0);
+
+  // Ensure all users can see the add post button
+  r_e("addPostButton").classList.remove("is-hidden");
 });
 
 
@@ -627,14 +629,100 @@ r_e("blog-link").addEventListener("click", () => {
 
 
 
+
+const calendarView = document.querySelector(".calview");
+const monthSelect = r_e("month-select");
+const prevMonthBtn = document.querySelector(".action_left");
+const nextMonthBtn = document.querySelector(".action_right");
+const yearblock = r_e("yearblock");
+const monthNames = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+const dayNames = ["Sun", "Mon", "Tues", "Wed", "Thu", "Fri", "Sat"];
+
+let currentDate = new Date();
+
+function generateCalendarHTML(date) {
+  const totalDays = 42;
+  let currentYear = date.getFullYear();
+  let currentMonth = date.getMonth();
+  let firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
+  let daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+  let dayCellsGenerated = 0;
+  let emptyCellsCount = 0;
+
+  let calendarHtml = "<div class='weekdayview'>";
+  for (let title = 0; title <= 6; title++) {
+    calendarHtml += `<div class='dayofweek'>${dayNames[title]}</div>`;
+  }
+  calendarHtml += "</div><div class='monthview'><div class='weekview'>";
+
+  for (let i = 0; i < firstDayOfMonth; i++) {
+    calendarHtml += '<div class="dayview empty"></div>';
+    dayCellsGenerated++;
+    emptyCellsCount++;
+  }
+  for (let day = 1; day <= daysInMonth; day++) {
+    calendarHtml += `<div class="dayview">${day}</div>`;
+    dayCellsGenerated++;
+    if (dayCellsGenerated % 7 === 0 && dayCellsGenerated !== totalDays) {
+      calendarHtml += '</div><div class="weekview">';
+      emptyCellsCount = 0; // Reset empty cells count at the start of a new week
+    }
+  }
+
+  while (dayCellsGenerated < totalDays) {
+    calendarHtml += '<div class="dayview empty"></div>';
+    dayCellsGenerated++;
+    emptyCellsCount++;
+    if (dayCellsGenerated % 7 === 0 && dayCellsGenerated !== totalDays) {
+      calendarHtml += '</div><div class="weekview">';
+      emptyCellsCount = 0; // Reset empty cells count at the start of a new week
+    }
+  }
+
+  if (emptyCellsCount === 7) {
+    // Remove the last weekview div if all its cells are empty
+    calendarHtml = calendarHtml.substring(
+      0,
+      calendarHtml.lastIndexOf('<div class="weekview">')
+    );
+  }
+
+  calendarHtml += "</div>"; // Close the last weekview or monthview div properly
+  return calendarHtml; // Return the calendar HTML string
+}
+
+// Function to generate a random code
+// function generateRandomCode(length) {
+//   const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+//   let code = "";
+//   for (let i = 0; i < length; i++) {
+//     code += characters.charAt(Math.floor(Math.random() * characters.length));
+//   }
+//   return code;
+// }
+
+// // Function to update the input field with the generated code
+// function updateCodeInput() {
+//   const codeInput = document.getElementById("codeInput");
+//   const randomCode = generateRandomCode(8); // Generate a random 8-character code (adjust length as needed)
+//   codeInput.value = randomCode;
+// }
+
 r_e("calendarbtn").addEventListener("click", () => {
-  let check_auth = auth.currentUser;
   console.log("btn clicked");
-  if (check_auth == null) {
-    // User is not signed in
-    signupModal.classList.remove("is-active");
-    loginModal.classList.add("is-active");
-  } else {
     // User is signed in
     let cal_page_content = `<main>
     <div id="cal_page" class="wrapper">
@@ -696,7 +784,6 @@ r_e("calendarbtn").addEventListener("click", () => {
           ${generateCalendarHTML(currentDate)}
         </div>
       </div>
-      ${rightMarginHTML(auth.currentUser.email == "amauwmadison@gmail.com")}
     </div>
   </main>`;
     appendContent(cal_page_content);
@@ -1136,7 +1223,6 @@ r_e("calendarbtn").addEventListener("click", () => {
     closeEventCardBtn.addEventListener("click", function () {
       eventCard.classList.add("hidden");
     });
-  }
 });
 // let attd_but = r_e("submit_points");
 // attd_but.addEventListener("click", () => {
