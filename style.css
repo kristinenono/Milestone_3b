@@ -122,6 +122,20 @@ x .title {
 .add-btn:hover {
   background-color: #b22b25;
 }
+
+.sadd-btn {
+  font: var(--titleFontFamily);
+  background-color: #b22b25;
+  color: #f3f2ee;
+  padding: 1rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 24px;
+  text-decoration: none;
+}
+.sadd-btn:hover {
+  background-color: #1f304f;
+}
 /* home page modal styling */
 /* submit and cancel button formats for the signup/login modals */
 .submitmodalbtn {
